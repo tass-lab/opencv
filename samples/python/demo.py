@@ -14,6 +14,7 @@ from common import splitfn
 
 # built-in modules
 import webbrowser
+import re
 from glob import glob
 from subprocess import Popen
 
@@ -167,6 +168,9 @@ class App:
 
     def on_run(self, *args):
         cmd = self.cmd_entry.get()
+        if not re.match(r'^[a-zA-Z0-9_\-/\\]+$', cmd):
+            print('Invalid command format')
+            return
         print('running:', cmd)
         Popen(sys.executable + ' ' + cmd, shell=True)
 
